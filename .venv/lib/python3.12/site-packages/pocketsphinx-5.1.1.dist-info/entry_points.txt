@@ -1,0 +1,4 @@
+[console_scripts]
+pocketsphinx_lm = pocketsphinx.lm:main
+pocketsphinx_to_textgrid = pocketsphinx.to_textgrid:main
+
