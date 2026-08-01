@@ -9,6 +9,8 @@ A simple yet powerful voice assistant built in Python, inspired by Iron Man's J.
 - **YouTube Integration:** Plays videos or music on YouTube.
 - **News Headlines:** Fetches and reads the latest news headlines from BBC News.
 - **AI-Powered Conversations:** Answers general questions and engages in conversation using Google's Gemini AI.
+- **Conversational Memory:** Remembers the context of the current conversation for natural follow-up questions.
+- **Chat Reset:** Allows clearing the AI's memory to start a fresh conversation.
 - **Secure API Key Handling:** Uses a `.env` file to securely store the API key.
 
 ## Getting Started
@@ -44,7 +46,6 @@ Follow these instructions to get a copy of the project up and running on your lo
     ```bash
     pip install -r requirements.txt
     ```
-    *(Note: You will need to create a `requirements.txt` file. You can do this by running `pip freeze > requirements.txt`)*
  
 4.  **Set up your environment variables:**
     Copy the example environment file and then edit the new `.env` file to add your API key.
@@ -52,7 +53,7 @@ Follow these instructions to get a copy of the project up and running on your lo
     cp .env.example .env
     ```
     ```
-    GEMINI_API_KEY="YOUR_API_KEY_HERE"
+    GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
     ```
 
 ## Usage
@@ -71,4 +72,5 @@ The assistant will initialize and start listening for the wake word "Jarvis". On
 - "Jarvis, open Google."
 - "Jarvis, play a song by Queen."
 - "Jarvis, tell me the latest news."
+- "Jarvis, new chat."
 - "Jarvis, shutdown."

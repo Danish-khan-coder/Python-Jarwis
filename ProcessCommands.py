@@ -5,16 +5,23 @@ import time
 from news import get_top_news
 from Speak import speak
 from AI import ask_ai
+from AI import new_chat
 
 
 def processCommand(command):
     print(command)
+    if any(word in command.lower() for word in ["new chat","clear memory","forget conversation","reset chat"]):
+        new_chat()
+        speak("Conversation cleared.")
+        return
+            
     
-    if "open google" in command.lower():
+    elif "open google" in command.lower():
         webbrowser.open("https://www.google.com")
     
-    elif "open" in command.lower() or "play" in command.lower():
+    elif "play" in command.lower():
         pywhatkit.playonyt(command)
+        
     elif "news" in command.lower():
         headlines = get_top_news()
 
