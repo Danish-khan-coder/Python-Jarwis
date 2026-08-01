@@ -1,62 +1,13 @@
-from news import get_top_news
+from ProcessCommands import processCommand
+from Speak import speak
 import speech_recognition as sr
 import requests
-import webbrowser
-import pyttsx3
-import pywhatkit
-import time
+
+
 
 
 r = sr.Recognizer()
-
-
-
-
-
-def speak(text):
-    try:
-        engine = pyttsx3.init()
-        engine.say(text)
-        engine.runAndWait()
-        engine.stop()
-        engine.setProperty("rate", 170)#Speaking rate of speaker
-    except Exception as e:
-        print("Speech Error:", e)
     
-def processCommand(command):
-    print(command)
-    
-    if "open google" in command.lower():
-        webbrowser.open("https://www.google.com")
-    
-    elif "open" in command.lower() or "play" in command.lower():
-        pywhatkit.playonyt(command)
-    elif "news" in command.lower():
-        headlines = get_top_news()
-
-        if not headlines:
-            speak("Sorry, I was unable to fetch the news at the moment.")
-        else:
-            speak("Here are today's top headlines.")
-            print("Here are today's top headlines.")
-
-            for i, headline in enumerate(headlines[:5], start=1):
-                headline = headline.replace("- BBC News", "").strip()
-
-                print(f"{i}. {headline}")
-
-                speak(f"Headline {i}")
-
-                speak(headline)
-                time.sleep(0.3)
-
-            speak("That's all for today's news.")
-            print("That's all for today's news.")
-            
-    elif "search" in command.lower() or ".com" in command.lower():
-            webbrowser.open(f"https://www.google.com/search?q={command.lower()}")   
-        
-        
     
     
 if __name__ == "__main__":
@@ -70,31 +21,37 @@ if __name__ == "__main__":
             with sr.Microphone() as source:
                 print("Listning .....  ")
                 r.adjust_for_ambient_noise(source, duration=1)
-                audio = r.listen(source ,timeout =5,phrase_time_limit=2)
+                audio = r.listen(source, timeout=15, phrase_time_limit=5)
             
-            word = r.recognize_google(audio)
+            word = r.recognize_google(audio, language="en-IN")
             
             if "jarvis" in word.lower():
-                speak("I'm listening.")
-                active = True
 
-                while active:
-                    with sr.Microphone() as source:
-                        print("Listening for command...")
+                # Remove the wake word from the recognized text
+                command = word.lower().replace("jarvis", "").strip()
 
-                        r.adjust_for_ambient_noise(source, duration=0.5)
+                # User said: "Jarvis open google"
+                if command:
+                    print(f"Command: {command}")
+                    processCommand(command)
+                else:
+                    speak("I'm listening.")
+                    try:
+                        with sr.Microphone() as source:
+                            print("Listening for command...")
 
-                        audio = r.listen(source,timeout=10,phrase_time_limit=5)
+                            r.adjust_for_ambient_noise(source, duration=0.5)
 
-                        command = r.recognize_google(audio, language="en-IN").lower()
+                            audio = r.listen(source,timeout=10,phrase_time_limit=8)
+                            command = r.recognize_google(audio,language="en-IN").lower()
+                            print(command)
 
-                        print(command)
-                        processCommand(command)
-                
-                        if "sleep" in command:
-                            speak("Going to sleep.")
-                            active = False
-                            break
+                            processCommand(command)
+                    except sr.WaitTimeoutError:
+                        speak("I didn't hear anything.")
+
+                    except sr.UnknownValueError:
+                        speak("Sorry, I couldn't understand.")
                 
             elif "shutdown" in word.lower():
                 speak(" Shutting down")
