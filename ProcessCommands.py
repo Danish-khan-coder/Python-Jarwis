@@ -4,6 +4,7 @@ import pywhatkit
 import time
 from news import get_top_news
 from Speak import speak
+from AI import ask_ai
 
 
 def processCommand(command):
@@ -38,6 +39,10 @@ def processCommand(command):
             
     elif "search" in command.lower() or ".com" in command.lower():
             webbrowser.open(f"https://www.google.com/search?q={command.lower()}")
+    else:
+        response = ask_ai(command)
+        print(response)
+        speak(response)
             
 if __name__=="__main__":
     Running=True
