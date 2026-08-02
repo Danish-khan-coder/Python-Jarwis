@@ -6,6 +6,7 @@ from news import get_top_news
 from Speak import speak
 from AI import ask_ai
 from AI import new_chat
+from Weather import weather_command
 
 
 def processCommand(command):
@@ -46,6 +47,10 @@ def processCommand(command):
             
     elif "search" in command.lower() or ".com" in command.lower():
             webbrowser.open(f"https://www.google.com/search?q={command.lower()}")
+            
+    elif "weather" in command.lower() or "temperature" in command.lower():
+        speak(weather_command(command))
+    
     else:
         response = ask_ai(command)
         print(response)
