@@ -56,13 +56,5 @@ def processCommand(command):
         print(response)
         speak(response)
             
-if __name__=="__main__":
-    Running=True
-    while Running:
-        
-        command=input("Enter your Command: ")
-        if "bye" in command.lower():
-            Running=False
-            continue
-        processCommand(command)
-        
+
+    

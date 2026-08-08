@@ -1,7 +1,9 @@
 from ProcessCommands import processCommand
 from Speak import speak
+from TextCommands import open_text_terminal
 import speech_recognition as sr
 import requests
+
 
 
 
@@ -12,6 +14,7 @@ r = sr.Recognizer()
     
 if __name__ == "__main__":
     speak(". Initallizing Jarwis ........")
+    open_text_terminal()
     running=True
     while running: 
         
