@@ -15,6 +15,8 @@ r = sr.Recognizer()
     
     
 if __name__ == "__main__":
+    print("Warming Up.....")
+    time.sleep(1)
     speak(". Initallizing Jarwis ........")
     open_text_terminal()
     running=True
@@ -64,11 +66,13 @@ if __name__ == "__main__":
                 print("Terminating Terminals....")
                 speak(" Shutting down")
                 print("Shutting down......")
-                #delay of 5 sec before termination so that speak function can work properly
-                time.sleep(5)
                 terminate_terminal()
-                
                 running = False
+                #delay of 2 sec before termination so that speak function can work properly
+                time.sleep(2)
+                
+                
+                
             else:
                 print("Sleeping......")
                 
