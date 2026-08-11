@@ -17,9 +17,17 @@ chat = client.chats.create(model="gemini-3.5-flash")
 
 
 def ask_ai(prompt: str):
-
     try:
-        response = chat.send_message(prompt)
+        # Instruct the model on desired output length based on your query
+        system_instruction = (
+            " Provide a concise, short summary response."
+            if "in detail" not in prompt.lower()
+            else " Provide a detailed, comprehensive response."
+        )
+
+        full_prompt = f"{prompt}\n\n[Instruction: {system_instruction}]"
+
+        response = chat.send_message(full_prompt)
         return response.text
 
     except Exception as e:

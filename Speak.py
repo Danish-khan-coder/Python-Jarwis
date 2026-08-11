@@ -1,4 +1,5 @@
 import pyttsx3
+import time
 
 def speak(text):
     try:
@@ -7,6 +8,8 @@ def speak(text):
 
         engine.say(text)
         engine.runAndWait()
+        time.sleep(2)
+        
     except Exception as e:
         print("Speech Error:", e)
 if __name__ =="__main__":

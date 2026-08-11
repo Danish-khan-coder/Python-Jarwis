@@ -1,9 +1,18 @@
-from ProcessCommands import processCommand
-import subprocess
 import os
+import subprocess
+from ProcessCommands import processCommand
+
+
+def terminate_terminal():
+    """Closes the frontmost Terminal window on macOS."""
+    subprocess.Popen([
+        "osascript",
+        "-e",
+        'tell application "Terminal" to close front window'
+    ])
+
 
 def open_text_terminal():
-
     text_file = os.path.join(
         os.path.dirname(os.path.abspath(__file__)),
         "TextCommands.py"
@@ -17,7 +26,6 @@ def open_text_terminal():
 
 
 def text_command_loop():
-
     print("\n==============================")
     print("       JARVIS TEXT MODE")
     print("==============================")
@@ -25,7 +33,6 @@ def text_command_loop():
     print("Type 'bye' to close text mode.\n")
 
     while True:
-
         command = input("You: ").strip()
 
         if not command:
@@ -36,6 +43,9 @@ def text_command_loop():
             break
 
         processCommand(command)
+
+    # Call termination function on exit
+    terminate_terminal()
 
 
 if __name__ == "__main__":

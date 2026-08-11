@@ -1,8 +1,10 @@
 from ProcessCommands import processCommand
 from Speak import speak
 from TextCommands import open_text_terminal
+from TextCommands import terminate_terminal
 import speech_recognition as sr
 import requests
+import time
 
 
 
@@ -57,8 +59,14 @@ if __name__ == "__main__":
                         speak("Sorry, I couldn't understand.")
                 
             elif "shutdown" in word.lower():
+
+                speak("Terminating Terminals....")
+                print("Terminating Terminals....")
                 speak(" Shutting down")
                 print("Shutting down......")
+                #delay of 5 sec before termination so that speak function can work properly
+                time.sleep(5)
+                terminate_terminal()
                 
                 running = False
             else:

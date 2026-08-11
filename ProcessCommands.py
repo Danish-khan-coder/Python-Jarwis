@@ -52,7 +52,12 @@ def processCommand(command):
         speak(weather_command(command))
     
     else:
-        response = ask_ai(command)
+        if "in detail" not in command.lower():
+            prompt = f"{command} (Please provide a concise, short summary response.)"
+        else:
+            prompt = command
+
+        response = ask_ai(prompt)
         print(response)
         speak(response)
             
